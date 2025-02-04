@@ -1,5 +1,5 @@
 # My stuff
-./rubysetup.sh
+rubysetup.sh
 /spec
 
 # Created by https://www.toptal.com/developers/gitignore/api/ruby,linux
