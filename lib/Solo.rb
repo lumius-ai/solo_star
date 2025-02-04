@@ -10,6 +10,9 @@ module Solo
   WINX = 735
   WINY = 415
 
+  # Sprite frame refresh rate (in milliseconds)
+  FRAMERATE = 50
+
   # Window class definition
   class Window < Gosu::Window
     def initialize()
@@ -66,8 +69,8 @@ module Solo
     end
 
     def draw()
-      img = @animation.tileset[0]
-      img.draw(@x - img.width, @y - img.height, SPRITEZ)
+      img = @animation.frame(FRAMERATE)
+      img.draw(@x - img.width, @y - img.height, SPRITEZ, 2, 2)
     end
   end
 
@@ -77,6 +80,10 @@ module Solo
 
     def initialize()
       @tileset = Gosu::Image.load_tiles("media/star.png", 25, 25)
+    end
+
+    def frame(x)
+      return @tileset[(Gosu::milliseconds / x) % @tileset.length]
     end
   end
 end
