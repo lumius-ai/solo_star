@@ -18,19 +18,25 @@ module Solo
 
       @background = Gosu::Image.new("media/star_background.jpg", tileable: true)
       @song = Gosu::Song.new("media/soundtrack.mp3")
-      #sprite = Star_sprite.new()
+      @sprite = Star_sprite.new()
 
 
     end
 
     def update()
       @song.play()
+      @sprite.place(self.mouse_x, self.mouse_y)
 
     end
 
     def draw()
       @background.draw(0,0, BACKGROUNDZ)
+      @sprite.draw()
 
+    end
+
+    def needs_cursor?
+      return false
     end
 
     def button_down(id)
@@ -43,6 +49,34 @@ module Solo
   end
 
   #Sprite class definition
+  class Star_sprite
+    attr_accessor :x, :y, :z
+
+    def initialize()
+      self.x = 0
+      self.y = 0
+      self.z = SPRITEZ
+      
+      @animation = Animation.new()
+    end
+    
+    def place(x, y)
+      self.x = x
+      self.y = y
+    end
+
+    def draw()
+      img = @animation.tileset[0]
+      img.draw(@x - img.width, @y - img.height, SPRITEZ)
+    end
+  end
 
   #Animation class definition
+  class Animation
+    attr_reader :tileset
+
+    def initialize()
+      @tileset = Gosu::Image.load_tiles("media/star.png", 25, 25)
+    end
+  end
 end
