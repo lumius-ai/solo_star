@@ -79,7 +79,7 @@ module Solo
     attr_reader :tileset
 
     def initialize()
-      @tileset = Gosu::Image.load_tiles("media/star.png", 25, 25)
+      @tileset = Gosu::Image.load_tiles("media/star2.png", 32, 32)
     end
 
     def frame(x)
